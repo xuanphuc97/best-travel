@@ -1,8 +1,8 @@
 package best_travel;
 
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -32,55 +32,67 @@ public class DataBase {
 			try {
 				sm.execute("CREATE DATABASE BestTravel");
 				sm.execute("USE BestTravel");
-				sm.execute("CREATE TABLE History(id int PRIMARY KEY, time date, list varchar(8000), k int, t int, output int)");
-			} catch (Exception e) {}
+				sm.execute(
+						"CREATE TABLE History(id int identity(1,1) PRIMARY KEY , time datetime , list varchar(8000), k int, t int, output varchar(20))");
+			} catch (Exception e) {
+			}
 		}
 	}
-	
-	public static void addHistory(int id, String time, String list, int k, int t, int ouput) throws SQLException {
+
+	public static void addHistory(String time, String list, int k, int t, String ouput) throws SQLException {
 		if (DataConnection()) {
 			sm = conn.createStatement();
 			try {
 				sm.execute("USE BestTravel");
-				String query = String.format("INSERT INTO History VALUES(%d, %s, %s, %d, %d, %d)", id, time, list, k, t, ouput); 
-				sm.execute(query); 
-			} catch (Exception e) {}
+				String query = String.format(
+						"INSERT INTO History (time, list, k, t, output) VALUES( '%s', '%s', %d, %d, '%s')", time, list,
+						k, t, ouput);
+				sm.execute(query);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
 		}
 	}
+
 	public static void delHistory(int id) throws SQLException {
 		if (DataConnection()) {
 			sm = conn.createStatement();
 			try {
 				sm.execute("USE BestTravel");
-				String query = String.format("DELETE FROM History WHERE id = %d",id);
-				sm.execute(query); 
-			} catch (Exception e) {}
+				String query = String.format("DELETE FROM History WHERE id = %d", id);
+				sm.execute(query);
+			} catch (Exception e) {
+			}
 		}
 	}
+
 	public static void delAllHistory() throws SQLException {
 		if (DataConnection()) {
 			sm = conn.createStatement();
 			try {
 				sm.execute("USE BestTravel");
 				sm.execute("DROP TABLE History");
-				sm.execute("CREATE TABLE History(id int PRIMARY KEY, time date, list varchar(8000), k int, t int, output int)");
-			} catch (Exception e) {}
+				sm.execute(
+						"CREATE TABLE History(id int PRIMARY KEY, time date, list varchar(8000), k int, t int, output varchar(20))");
+			} catch (Exception e) {
+			}
 		}
 	}
-	
+
 	public static ResultSet getAllHistory() throws SQLException {
 		ResultSet rs = null;
 		if (DataConnection()) {
 			sm = conn.createStatement();
 			try {
-				 sm.execute("USE BestTravel");
-				 rs= sm.executeQuery("SELECT * FROM History");
-			} catch (Exception e) {}
+				sm.execute("USE BestTravel");
+				rs = sm.executeQuery("SELECT * FROM History");
+			} catch (Exception e) {
+			}
 		}
-		
+
 		return rs;
 	}
-	
+
 	public static String[] getList() throws SQLException {
 		List<String> list = new ArrayList<String>();
 		String[] res;
@@ -89,8 +101,9 @@ public class DataBase {
 			sm = conn.createStatement();
 			try {
 				sm.execute("USE BestTravel");
-				 rs = sm.executeQuery("SELECT History.list FROM History");
-			} catch (Exception e) {}
+				rs = sm.executeQuery("SELECT History.list FROM History");
+			} catch (Exception e) {
+			}
 		}
 		while (rs.next()) {
 			list.add(rs.getString(1));
@@ -98,8 +111,8 @@ public class DataBase {
 		res = list.toArray(new String[0]);
 		return res;
 	}
+
 	public static void main(String[] args) throws SQLException {
-		createDataBase();
-		
+
 	}
 }
