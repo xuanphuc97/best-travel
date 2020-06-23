@@ -1,7 +1,5 @@
 package best_travel;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -92,26 +90,7 @@ public class DataBase {
 
 		return rs;
 	}
-
-	public static String[] getList() throws SQLException {
-		List<String> list = new ArrayList<String>();
-		String[] res;
-		ResultSet rs = null;
-		if (DataConnection()) {
-			sm = conn.createStatement();
-			try {
-				sm.execute("USE BestTravel");
-				rs = sm.executeQuery("SELECT History.list FROM History");
-			} catch (Exception e) {
-			}
-		}
-		while (rs.next()) {
-			list.add(rs.getString(1));
-		}
-		res = list.toArray(new String[0]);
-		return res;
-	}
-
+	
 	public static void main(String[] args) throws SQLException {
 
 	}
