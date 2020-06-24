@@ -1,6 +1,7 @@
 package best_travel;
 
 import java.sql.Statement;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -31,7 +32,7 @@ public class DataBase {
 				sm.execute("CREATE DATABASE BestTravel");
 				sm.execute("USE BestTravel");
 				sm.execute(
-						"CREATE TABLE History(id int identity(1,1) PRIMARY KEY , time datetime , list varchar(8000), k int, t int, output varchar(20))");
+						"CREATE TABLE History(id INT IDENTITY(1,1) PRIMARY KEY , time datetime , list varchar(8000), k int, t int, output varchar(20), flag bit)");
 			} catch (Exception e) {
 			}
 		}
@@ -43,8 +44,8 @@ public class DataBase {
 			try {
 				sm.execute("USE BestTravel");
 				String query = String.format(
-						"INSERT INTO History (time, list, k, t, output) VALUES( '%s', '%s', %d, %d, '%s')", time, list,
-						k, t, ouput);
+						"INSERT INTO History (time, list, k, t, output, flag) VALUES( '%s', '%s', %d, %d, '%s', %d)", time, list,
+						k, t, ouput, 0);
 				sm.execute(query);
 			} catch (Exception e) {
 				System.out.println(e.toString());
@@ -57,7 +58,7 @@ public class DataBase {
 			sm = conn.createStatement();
 			try {
 				sm.execute("USE BestTravel");
-				String query = String.format("DELETE FROM History WHERE id = %d", id);
+				String query = String.format("UPDATE History SET flag = 1 WHERE id = %d", id);
 				sm.execute(query);
 			} catch (Exception e) {
 			}
@@ -69,9 +70,7 @@ public class DataBase {
 			sm = conn.createStatement();
 			try {
 				sm.execute("USE BestTravel");
-				sm.execute("DROP TABLE History");
-				sm.execute(
-						"CREATE TABLE History(id int PRIMARY KEY, time date, list varchar(8000), k int, t int, output varchar(20))");
+				sm.execute("UPDATE History SET flag = 1 WHERE flag = 0");
 			} catch (Exception e) {
 			}
 		}
@@ -83,7 +82,7 @@ public class DataBase {
 			sm = conn.createStatement();
 			try {
 				sm.execute("USE BestTravel");
-				rs = sm.executeQuery("SELECT * FROM History");
+				rs = sm.executeQuery("SELECT * FROM History WHERE flag = 0");
 			} catch (Exception e) {
 			}
 		}
