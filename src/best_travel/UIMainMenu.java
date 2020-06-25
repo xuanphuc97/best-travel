@@ -2,6 +2,8 @@ package best_travel;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -9,6 +11,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -21,8 +24,9 @@ import javax.swing.JTextArea;
 
 public class UIMainMenu extends JFrame{
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
+		DataBase.createDataBase();
 		new UIMainMenu(); 
 		
 	}
@@ -36,7 +40,22 @@ public class UIMainMenu extends JFrame{
 		 * set the basic properties of the frame 
 		 */
 		this.setTitle("Best Travel!");
-		this.setDefaultCloseOperation(3); /* EXIT ON CLOSE */
+		/*
+		 *  show a prompt when user close the window
+		 */
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
+		this.addWindowListener(new WindowAdapter() {
+		    @Override
+		    public void windowClosing(WindowEvent we)
+		    { 
+		        String ObjButtons[] = {"Yes","No"};
+		        int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure you want to exit?","Best Travel",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+		        if(PromptResult==JOptionPane.YES_OPTION)
+		        {
+		            System.exit(0);
+		        }
+		    }
+		});
 		this.setSize(1000,600);
 		this.setLayout(null); 	/* set absolute layout */ 
 
@@ -79,18 +98,18 @@ public class UIMainMenu extends JFrame{
 		 *  the original text is too long -> divide it into 2 parts 
 		 *  part 1
 		 */ 
-		String text1 = "John and Mary want to travel between a few towns A, B, C ... Mary has on a sheet of paper a list of distances between these towns. John is tired of driving and he says to Mary that he doesn't want to drive more than t miles and he will visit only k towns.";
+		String text1 = "      John and Mary want to travel between a few towns A, B, C ... Mary has on a sheet of paper a list of distances between these towns. John is tired of driving and he says to Mary that he doesn't want to drive more than t miles and he will visit only k towns.";
 		JTextArea taDescribe1 = new JTextArea(); 
 		taDescribe1.setWrapStyleWord(true);
 		taDescribe1.setLineWrap(true);
-		taDescribe1.setText(text1);
+		taDescribe1.append(text1);
 		taDescribe1.setBounds(30, 50, 960, 65);
 		taDescribe1.setFont(new Font("UD Digi Kyokasho NK-B", Font.BOLD, 16));
 		taDescribe1.setEditable(false); 	/* this TextArea cannot be edited */
 		/*
 		 * part 2
 		 */
-		String text2 = "Which distances, hence which towns, they will choose so that the sum of the distances is the biggest possible to please Mary and John?"; 
+		String text2 = "      Which distances, hence which towns, they will choose so that the sum of the distances is the biggest possible to please Mary and John?"; 
 		JTextArea taDescribe2 = new JTextArea(); 
 		taDescribe2.setWrapStyleWord(true);
 		taDescribe2.setLineWrap(true);
