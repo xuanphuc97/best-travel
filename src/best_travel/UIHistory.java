@@ -1,5 +1,4 @@
 package best_travel;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -106,6 +105,10 @@ public class UIHistory extends JFrame{
 		btnDel.addActionListener(obj);
 		btnDelAll.addActionListener(obj);
 		btnBack.addActionListener(obj);
+		tbHistory.addMouseListener(obj);
+		btnDel.addMouseListener(obj);
+		btnDelAll.addMouseListener(obj);
+		btnBack.addMouseListener(obj);
 		this.setVisible(true);	
 		
 	}
@@ -113,14 +116,38 @@ public class UIHistory extends JFrame{
 	/*
 	 * adjust the size of the table 
 	 */
-	public void edittable() {
-		
+	public static void edittable() {
+		tbHistory.getTableHeader().setFont(new Font("Arial", Font.BOLD, 18));
+		tbHistory.setFont(new Font("Arial", Font.PLAIN, 15));
+	//	tbHistory.getTableHeader().setPreferredSize(new Dimension(100, 30));
+		tbHistory.setRowHeight(30);
+		tbHistory.getColumnModel().getColumn(0).setMaxWidth(50);
+		tbHistory.getColumnModel().getColumn(1).setMaxWidth(200);
+		tbHistory.getColumnModel().getColumn(2).setMaxWidth(200);
+		tbHistory.getColumnModel().getColumn(3).setMaxWidth(180);
+		tbHistory.getColumnModel().getColumn(4).setMaxWidth(200);
+		tbHistory.getColumnModel().getColumn(5).setMaxWidth(120);
 	}
 	
 	/*
 	 * add data into the table using database
 	 */
-	public void setdatatable() {
+	public static void setdatatable() {
+		String[] data = {"ID", "Time", "List of data", "Number of cities", "Distance Limitation", "Output"};
+		DefaultTableModel model = new DefaultTableModel(data,0); 
+		tbHistory.setModel(model);
 		
+		try {
+			ResultSet rs = DataBase.getAllHistory();
+			while (rs.next())
+			{
+				model.addRow(new Object[] {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)});
+			}
+			edittable();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+
 	}
 }
