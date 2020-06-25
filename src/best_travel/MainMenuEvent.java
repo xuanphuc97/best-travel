@@ -21,6 +21,9 @@ class MainMenuEvent implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent me) {
 		// TODO Auto-generated method stub
+		/*
+		 * get source of the clicked-object
+		 */
 		Object subobj = me.getSource(); 
 		String Text = null; 
 		try {
@@ -37,22 +40,38 @@ class MainMenuEvent implements MouseListener
 			}
 			
 		}
-		
+		/*
+		 * button Start: Open UI Start and dispose UI Main Menu Frame
+		 */
 		if (Text == "START") {
 			new UIStart(); 
 			obj.dispose();
 		}
-		
+        /*
+         * button History: Open UI History and dispose UI Main Menu Frame
+         */
 		if (Text == "HISTORY")
 		{
 			new UIHistory(); 
 			obj.dispose();
 		}
+		/*
+		 * button Exit: Show the prompt when clicked 
+		 * if user chooses yes -> close the app
+		 * if user chooses no -> do nothing
+		 */
 		if (Text == "EXIT")
 		{
-			System.exit(0);
+			String ObjButtons[] = {"Yes","No"};
+	        int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure you want to exit?","Best Travel",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+	        if(PromptResult==JOptionPane.YES_OPTION)
+	        {
+	            System.exit(0);
+	        }
 		}
-		
+		/*
+		 * Label About us: Show information of the development team
+		 */
 		if (Text == "About us") {
 			new AboutUs();
 		}
@@ -60,6 +79,11 @@ class MainMenuEvent implements MouseListener
 	}
 
 	@Override
+	/*
+	 *  When the cursor enter an object, it will change into hand_cursor
+	 *  if this object is a label, its text's color will change into red
+	 *  if this object is a button, its background color will change into light blue
+	 */
 	public void mouseEntered(MouseEvent me) {
 		// TODO Auto-generated method stub
 		try {
@@ -74,7 +98,7 @@ class MainMenuEvent implements MouseListener
 				try 
 				{
 					JButton subbtn = (JButton) subobj;
-					subbtn.setBackground(Color.blue);
+					subbtn.setBackground(new Color(100, 149, 237));
 					me.setSource(subbtn);
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, e1.toString());
@@ -86,7 +110,9 @@ class MainMenuEvent implements MouseListener
 			
 		}
 	}
-
+	/*
+	 * when the cursor move out from an object, they will return to normal appearance 
+	 */
 	@Override
 	public void mouseExited(MouseEvent me) {
 		// TODO Auto-generated method stub
