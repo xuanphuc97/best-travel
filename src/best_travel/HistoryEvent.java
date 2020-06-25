@@ -1,5 +1,4 @@
 package best_travel;
-
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
@@ -27,8 +26,22 @@ public class HistoryEvent implements ActionListener, MouseListener{
 		 * button Delete/Delete function 
 		 */
 		if (e.getActionCommand().equals("Delete"))
-			try {
-				
+			try { 
+				if (obj.tbHistory.getSelectedRowCount()!=1) {
+					JOptionPane.showMessageDialog(null, "Please select one row"); 
+					return; 
+				}
+				DefaultTableModel model = (DefaultTableModel)obj.tbHistory.getModel(); 
+				int selectedRowInd = obj.tbHistory.getSelectedRow();
+				selectedRowInd = obj.tbHistory.convertRowIndexToModel(selectedRowInd); 
+				int id = Integer.parseInt(model.getValueAt(selectedRowInd, 0).toString()); 
+				int confirm = JOptionPane.showConfirmDialog(null, "Delete this record?", "Delete record", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (confirm ==0 ) {
+					DataBase.delHistory(id);
+					obj.setdatatable();
+					JOptionPane.showMessageDialog(null, "Deleted");
+				}
+			
 			}
 			catch (Exception ex){
 				JOptionPane.showMessageDialog(null, ex.toString());
@@ -39,7 +52,12 @@ public class HistoryEvent implements ActionListener, MouseListener{
 		 */
 		else if (e.getActionCommand().equals("Delete All"))
 			try {
-				
+				int confirm = JOptionPane.showConfirmDialog(null, "Delete all of the records?", "Delete all", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (confirm == 0) {
+					DataBase.delAllHistory();
+					obj.setdatatable();
+					JOptionPane.showMessageDialog(null, "Deleted all!");
+				}
 			}
 			catch (Exception ex){
 				JOptionPane.showMessageDialog(null, ex.toString());
