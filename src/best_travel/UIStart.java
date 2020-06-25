@@ -19,7 +19,7 @@ import javax.swing.border.Border;
 
 public class UIStart extends JFrame {
 
-	JLabel lbBack, lbHistory, lbClickRes, lbReset; 
+	JLabel lbBack, lbHistory, lbClickRes; 
 	JTextArea taStandard;
 	JScrollPane spINPstd, spTFDirectory; 
 	JTextField tfDirectory, tfDistance, tfCityNum, tfRes;
@@ -47,7 +47,7 @@ public class UIStart extends JFrame {
 		/*
 		 * set icon for the frame
 		 */
-		Image icon = (new ImageIcon("Images/eicon.png")).getImage(); 
+		Image icon = (new ImageIcon("Images/icon.png")).getImage(); 
 		this.setIconImage(icon);
 		
 		/*
@@ -94,7 +94,7 @@ public class UIStart extends JFrame {
 		lbStandardINP.setFont(font.deriveFont(attributes));
 			/****/
 		taStandard = new JTextArea("type something here..."); 
-		taStandard.setFont(new Font("Monospaced", Font.BOLD + Font.ITALIC, 16));
+		taStandard.setFont(new Font("Monospaced", Font.BOLD + Font.ITALIC, 14));
 		taStandard.setWrapStyleWord(true);
 		taStandard.setLineWrap(true);
 		taStandard.setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
@@ -113,7 +113,7 @@ public class UIStart extends JFrame {
 		
 		tfDirectory = new JTextField("Directory..."); 	/* this text field displayed the directory, so it could not be editable */
 		tfDirectory.setEditable(false);
-		tfDirectory.setFont(new Font("Monospaced", Font.BOLD + Font.ITALIC, 16));
+		tfDirectory.setFont(new Font("Monospaced", Font.BOLD + Font.ITALIC, 14));
 		tfDirectory.setBackground(Color.white);
 		tfDirectory.setBorder(BorderFactory.createLoweredBevelBorder());
 		spTFDirectory = new JScrollPane(tfDirectory); /* in case the directory link is too long */ 
@@ -134,7 +134,7 @@ public class UIStart extends JFrame {
 		lbDistance.setFont(font.deriveFont(attributes));
 		
 		tfDistance = new JTextField(); 
-		tfDistance.setFont(new Font("Monospaced", Font.BOLD + Font.ITALIC, 16)); 
+		tfDistance.setFont(new Font("Monospaced", Font.BOLD + Font.ITALIC, 14)); 
 		tfDistance.setBackground(Color.white);
 		//tfDistance.setBorder(BorderFactory.createLoweredBevelBorder());
 		
@@ -148,7 +148,7 @@ public class UIStart extends JFrame {
 		lbCityNum.setFont(font.deriveFont(attributes));
 		
 		tfCityNum = new JTextField(); 
-		tfCityNum.setFont(new Font("Monospaced", Font.BOLD + Font.ITALIC, 16)); 
+		tfCityNum.setFont(new Font("Monospaced", Font.BOLD + Font.ITALIC, 14)); 
 		tfCityNum.setBackground(Color.white);
 		
 		lbCityNum.setBounds(10, 240, 200, 20);
@@ -190,7 +190,7 @@ public class UIStart extends JFrame {
 		
 		lbClickRes = new JLabel("click to see result"); 
 		lbClickRes.setFont(new Font("Microsoft Jhenghei UI", Font.BOLD, 20));
-		lbClickRes.setBounds(330, 0, 180, 40);
+		lbClickRes.setBounds(400, 0, 300, 40);
 		
 		JLabel lbRes = new JLabel("The distance chosen by Mary and John: "); 
 		lbRes.setFont(font.deriveFont(attributes));
@@ -205,12 +205,6 @@ public class UIStart extends JFrame {
 		lbMiles.setFont(font);
 		lbMiles.setBounds(850, 45, 100, 30);
 		
-		lbReset = new JLabel("reset"); 
-		lbReset.setFont(new Font("Microsoft Jhenghei UI", Font.BOLD, 20));
-		lbReset.setBounds(550, 0, 300, 40);
-		
-		
-		pnOUT.add(lbReset); 
 		pnOUT.add(lbClickRes);
 		pnOUT.add(lbRes); 
 		pnOUT.add(tfRes); 
@@ -231,9 +225,7 @@ public class UIStart extends JFrame {
 		lbBack.addMouseListener(obj);
 		lbHistory.addMouseListener(obj);
 		lbClickRes.addMouseListener(obj);
-		lbReset.addMouseListener(obj);
 		taStandard.addMouseListener(obj);
-		taStandard.addKeyListener(obj);
 		this.setVisible(true);
 		
 	}
