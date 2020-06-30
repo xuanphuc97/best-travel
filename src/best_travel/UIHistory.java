@@ -1,7 +1,6 @@
 package best_travel;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.sql.ResultSet;
@@ -131,7 +130,7 @@ public class UIHistory extends JFrame{
 	/*
 	 * add data into the table using database
 	 */
-	public static void setdatatable() {
+	public void setdatatable() {
 		String[] data = {"ID", "Time", "List of data", "Number of cities", "Distance Limitation", "Output"};
 		DefaultTableModel model = new DefaultTableModel(data,0); 
 		tbHistory.setModel(model);
