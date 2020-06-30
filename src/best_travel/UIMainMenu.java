@@ -98,22 +98,22 @@ public class UIMainMenu extends JFrame{
 		 *  the original text is too long -> divide it into 2 parts 
 		 *  part 1
 		 */ 
-		String text1 = "      John and Mary want to travel between a few towns A, B, C ... Mary has on a sheet of paper a list of distances between these towns. John is tired of driving and he says to Mary that he doesn't want to drive more than t miles and he will visit only k towns.";
+		String taDescribe1content = "      John and Mary want to travel between a few towns A, B, C ... Mary has on a sheet of paper a list of distances between these towns. John is tired of driving and he says to Mary that he doesn't want to drive more than t miles and he will visit only k towns.";
 		JTextArea taDescribe1 = new JTextArea(); 
 		taDescribe1.setWrapStyleWord(true);
 		taDescribe1.setLineWrap(true);
-		taDescribe1.append(text1);
+		taDescribe1.append(taDescribe1content);
 		taDescribe1.setBounds(30, 50, 960, 65);
 		taDescribe1.setFont(new Font("UD Digi Kyokasho NK-B", Font.BOLD, 16));
 		taDescribe1.setEditable(false); 	/* this TextArea cannot be edited */
 		/*
 		 * part 2
 		 */
-		String text2 = "      Which distances, hence which towns, they will choose so that the sum of the distances is the biggest possible to please Mary and John?"; 
+		String taDescribe2content = "      Which distances, hence which towns, they will choose so that the sum of the distances is the biggest possible to please Mary and John?"; 
 		JTextArea taDescribe2 = new JTextArea(); 
 		taDescribe2.setWrapStyleWord(true);
 		taDescribe2.setLineWrap(true);
-		taDescribe2.setText(text2);
+		taDescribe2.setText(taDescribe2content);
 		taDescribe2.setBounds(30, 140, 960, 50);
 		taDescribe2.setFont(new Font("UD Digi Kyokasho NK-B", Font.BOLD, 16));
 		taDescribe2.setEditable(false); 	/* this TextArea cannot be edited */
