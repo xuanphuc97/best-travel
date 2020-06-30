@@ -119,7 +119,6 @@ public class UIHistory extends JFrame{
 	public static void edittable() {
 		tbHistory.getTableHeader().setFont(new Font("Arial", Font.BOLD, 18));
 		tbHistory.setFont(new Font("Arial", Font.PLAIN, 15));
-	//	tbHistory.getTableHeader().setPreferredSize(new Dimension(100, 30));
 		tbHistory.setRowHeight(30);
 		tbHistory.getColumnModel().getColumn(0).setMaxWidth(50);
 		tbHistory.getColumnModel().getColumn(1).setMaxWidth(200);
